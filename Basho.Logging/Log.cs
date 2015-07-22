@@ -8,8 +8,18 @@ namespace Basho.Logging
         private readonly log4net.ILog _log;
 
         public Log()
+            : this(GetLoggerName())
         {
-            _log = LogManager.GetLogger(LoggerName);
+        }
+
+        private Log(string loggerName)
+        {
+            _log = LogManager.GetLogger(loggerName);
+        }
+
+        private static string GetLoggerName()
+        {
+            return LoggerName;
         }
 
         public void Debug(string message)
