@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Basho.Logging\Basho.Logging.csproj">
-      <Project>{5e8eb967-7cd8-43d0-8a56-758b13f1d631}</Project>
+      <Project>{1393441f-da9c-4c8b-b898-35ed86371ebe}</Project>
       <Name>Basho.Logging</Name>
     </ProjectReference>
   </ItemGroup>
