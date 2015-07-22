@@ -1,5 +1,7 @@
 ﻿namespace Basho.Logging
 {
+    public interface ILog<T> : ILog { }
+
     public interface ILog
     {
         void Debug(string message);

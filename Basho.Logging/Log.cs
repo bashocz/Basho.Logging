@@ -4,6 +4,12 @@ using log4net;
 
 namespace Basho.Logging
 {
+    public class Log<T> : Log, ILog<T>
+    {
+        public Log()
+            : base(typeof(T)) { }
+    }
+
     public class Log : ILog
     {
         private readonly log4net.ILog _log;
@@ -11,7 +17,7 @@ namespace Basho.Logging
         public Log()
             : this(GetLoggerName()) { }
 
-        private Log(Type callerType)
+        protected Log(Type callerType)
         {
             string loggerName = callerType.FullName;
             _log = LogManager.GetLogger(loggerName);

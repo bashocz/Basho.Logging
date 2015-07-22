@@ -58,6 +58,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="LogTests.cs" />
+    <Compile Include="Mocks\Baz.cs" />
+    <Compile Include="Mocks\Bar.cs" />
     <Compile Include="Mocks\Foo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

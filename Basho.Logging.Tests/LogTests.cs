@@ -13,6 +13,8 @@ namespace Basho.Logging.Tests
     [TestClass]
     public class LogTests
     {
+        #region initialization
+
         private static MemoryAppender _appender = null;
 
         [ClassInitialize]
@@ -31,12 +33,34 @@ namespace Basho.Logging.Tests
 
         }
 
+        #endregion initialization
+
+        #region ctor tests
+
         [TestMethod]
-        public void CtorTest()
+        public void CtorLogTest()
         {
-            Foo foo = new Foo();
+            var foo = new Foo();
 
             Assert.IsNotNull(LogManager.GetLogger(foo.GetType().Name));
         }
+
+        [TestMethod]
+        public void CtorLogOfTTest()
+        {
+            var bar = new Bar();
+
+            Assert.IsNotNull(LogManager.GetLogger(bar.GetType().Name));
+        }
+
+        [TestMethod]
+        public void CtorLogOfTDerivedeFromLogTest()
+        {
+            var baz = new Baz();
+
+            Assert.IsNotNull(LogManager.GetLogger(baz.GetType().Name));
+        }
+
+        #endregion ctor tests
     }
 }
