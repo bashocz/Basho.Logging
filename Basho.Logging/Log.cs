@@ -1,25 +1,26 @@
-﻿using log4net;
+﻿using System;
+using System.Diagnostics;
+using log4net;
 
 namespace Basho.Logging
 {
     public class Log : ILog
     {
-        private const string LoggerName = "MyLogger";
         private readonly log4net.ILog _log;
 
         public Log()
-            : this(GetLoggerName())
-        {
-        }
+            : this(GetLoggerName()) { }
 
-        private Log(string loggerName)
+        private Log(Type callerType)
         {
+            string loggerName = callerType.FullName;
             _log = LogManager.GetLogger(loggerName);
         }
 
-        private static string GetLoggerName()
+        private static Type GetLoggerName()
         {
-            return LoggerName;
+            var callerType = new StackFrame(2, false).GetMethod().DeclaringType;
+            return callerType;
         }
 
         public void Debug(string message)
