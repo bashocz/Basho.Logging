@@ -56,8 +56,18 @@ namespace Basho.Logging.Tests
         [TestMethod]
         public void CtorLogOfTDerivedeFromLogTest()
         {
-            var baz = new Baz();
+            var fooBar = new FooBar();
 
+            Assert.IsNotNull(LogManager.GetLogger(fooBar.GetType().Name));
+        }
+
+        [TestMethod]
+        public void CtorLogOfTDiReadyTest()
+        {
+            var log = new Log<Baz>();
+            var baz = new Baz(log);
+
+            Assert.IsNotNull(baz.Log);
             Assert.IsNotNull(LogManager.GetLogger(baz.GetType().Name));
         }
 
