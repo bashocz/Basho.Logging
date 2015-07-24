@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using Basho.Logging.Tests.Mocks;
 using log4net;
 using log4net.Appender;
@@ -14,6 +15,8 @@ namespace Basho.Logging.Tests
     {
         private static MemoryAppender _appender = null;
 
+        private static object lockObject = new object();
+
         public Log4NetFixture()
         {
             _appender = new MemoryAppender();
@@ -21,6 +24,22 @@ namespace Basho.Logging.Tests
 
             var repository = LogManager.GetRepository();
             repository.Threshold = Level.Debug;
+        }
+
+        public LoggingEvent DoLog(Action action)
+        {
+            lock (lockObject)
+            {
+                action();
+                return _appender.GetEvents().LastOrDefault();
+            }
+        }
+
+        public void VerifyLogEntry(string message, Level level, string logger, LoggingEvent entry)
+        {
+            Assert.Equal(message, entry.RenderedMessage);
+            Assert.Equal(level, entry.Level);
+            Assert.Equal(logger, entry.LoggerName);
         }
     }
 
@@ -70,5 +89,80 @@ namespace Basho.Logging.Tests
         }
 
         #endregion ctor tests
+
+        #region Debug methods
+
+        [Fact]
+        public void DebugTest()
+        {
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Debug("simple log");
+            });
+
+            _fixture.VerifyLogEntry("simple log", Level.Debug, "Basho.Logging.Tests.Mocks.Foo", entry);            
+        }
+
+        #endregion Debug methods
+
+        #region Info methods
+
+        [Fact]
+        public void InfoTest()
+        {
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Info("simple log");
+            });
+
+            _fixture.VerifyLogEntry("simple log", Level.Info, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        #endregion Info methods
+
+        #region Warn methods
+
+        [Fact]
+        public void WarnTest()
+        {
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Warn("simple log");
+            });
+
+            _fixture.VerifyLogEntry("simple log", Level.Warn, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        #endregion Warn methods
+
+        #region Error methods
+
+        [Fact]
+        public void ErrorTest()
+        {
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Error("simple log");
+            });
+
+            _fixture.VerifyLogEntry("simple log", Level.Error, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        #endregion Error methods
+
+        #region Fatal methods
+
+        [Fact]
+        public void FatalTest()
+        {
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Fatal("simple log");
+            });
+
+            _fixture.VerifyLogEntry("simple log", Level.Fatal, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        #endregion Fatal methods
     }
 }
