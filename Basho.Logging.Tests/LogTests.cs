@@ -6,19 +6,15 @@ using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Basho.Logging.Tests
 {
-    [TestClass]
-    public class LogTests
+    public class Log4NetFixture
     {
-        #region initialization
-
         private static MemoryAppender _appender = null;
 
-        [ClassInitialize]
-        public static void LogTestsInitialize(TestContext testContext)
+        public Log4NetFixture()
         {
             _appender = new MemoryAppender();
             BasicConfigurator.Configure(_appender);
@@ -26,49 +22,51 @@ namespace Basho.Logging.Tests
             var repository = LogManager.GetRepository();
             repository.Threshold = Level.Debug;
         }
+    }
 
-        [ClassCleanup]
-        public static void LogTestsCleanup()
+    public class LogTests : IClassFixture<Log4NetFixture>
+    {
+        public readonly Log4NetFixture _fixture;
+
+        public LogTests(Log4NetFixture fixture)
         {
-
+            _fixture = fixture;
         }
-
-        #endregion initialization
 
         #region ctor tests
 
-        [TestMethod]
+        [Fact]
         public void CtorLogTest()
         {
             var foo = new Foo();
 
-            Assert.IsNotNull(LogManager.GetLogger(foo.GetType().Name));
+            Assert.NotNull(LogManager.GetLogger(foo.GetType().Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void CtorLogOfTTest()
         {
             var bar = new Bar();
 
-            Assert.IsNotNull(LogManager.GetLogger(bar.GetType().Name));
+            Assert.NotNull(LogManager.GetLogger(bar.GetType().Name));
         }
 
-        [TestMethod]
-        public void CtorLogOfTDerivedeFromLogTest()
+        [Fact]
+        public void CtorLogOfTDerivedFromLogTest()
         {
             var fooBar = new FooBar();
 
-            Assert.IsNotNull(LogManager.GetLogger(fooBar.GetType().Name));
+            Assert.NotNull(LogManager.GetLogger(fooBar.GetType().Name));
         }
 
-        [TestMethod]
+        [Fact]
         public void CtorLogOfTDiReadyTest()
         {
             var log = new Log<Baz>();
             var baz = new Baz(log);
 
-            Assert.IsNotNull(baz.Log);
-            Assert.IsNotNull(LogManager.GetLogger(baz.GetType().Name));
+            Assert.NotNull(baz.Log);
+            Assert.NotNull(LogManager.GetLogger(baz.GetType().Name));
         }
 
         #endregion ctor tests
