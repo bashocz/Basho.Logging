@@ -191,84 +191,30 @@ namespace Basho.Logging.Tests
 
         #endregion ctor tests
 
-        #region Debug methods
+        #region Log methods
 
-        [Fact]
-        public void DebugTest()
+        [Theory]
+        [InlineData(LevelTest.Debug)]
+        [InlineData(LevelTest.Info)]
+        [InlineData(LevelTest.Warn)]
+        [InlineData(LevelTest.Error)]
+        [InlineData(LevelTest.Fatal)]
+        public void DebugTest(LevelTest level)
         {
-            _fixture.TestLog(LevelTest.Debug);
+            _fixture.TestLog(level);
         }
 
-        [Fact]
-        public void DebugExceptionTest()
+        [Theory]
+        [InlineData(LevelTest.Debug)]
+        [InlineData(LevelTest.Info)]
+        [InlineData(LevelTest.Warn)]
+        [InlineData(LevelTest.Error)]
+        [InlineData(LevelTest.Fatal)]
+        public void DebugExceptionTest(LevelTest level)
         {
-            _fixture.TestLog(LevelTest.Debug);
+            _fixture.TestExceptionLog(level);
         }
 
-        #endregion Debug methods
-
-        #region Info methods
-
-        [Fact]
-        public void InfoTest()
-        {
-            _fixture.TestLog(LevelTest.Info);
-        }
-
-        [Fact]
-        public void InfoExceptionTest()
-        {
-            _fixture.TestExceptionLog(LevelTest.Info);
-        }
-
-        #endregion Info methods
-
-        #region Warn methods
-
-        [Fact]
-        public void WarnTest()
-        {
-            _fixture.TestLog(LevelTest.Warn);
-        }
-
-        [Fact]
-        public void WarnExceptionTest()
-        {
-            _fixture.TestExceptionLog(LevelTest.Warn);
-        }
-
-        #endregion Warn methods
-
-        #region Error methods
-
-        [Fact]
-        public void ErrorTest()
-        {
-            _fixture.TestLog(LevelTest.Error);
-        }
-
-        [Fact]
-        public void ErrorExceptionTest()
-        {
-            _fixture.TestExceptionLog(LevelTest.Error);
-        }
-
-        #endregion Error methods
-
-        #region Fatal methods
-
-        [Fact]
-        public void FatalTest()
-        {
-            _fixture.TestLog(LevelTest.Fatal);
-        }
-
-        [Fact]
-        public void FatalExceptionTest()
-        {
-            _fixture.TestExceptionLog(LevelTest.Fatal);
-        }
-
-        #endregion Fatal methods
+        #endregion Log methods
     }
 }
