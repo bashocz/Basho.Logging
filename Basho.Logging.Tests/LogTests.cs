@@ -12,6 +12,15 @@ using Xunit;
 
 namespace Basho.Logging.Tests
 {
+    public enum LevelTest
+    {
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Fatal
+    }
+
     public class Log4NetFixture
     {
         private static MemoryAppender _appender = null;
@@ -24,7 +33,6 @@ namespace Basho.Logging.Tests
             BasicConfigurator.Configure(_appender);
 
             var repository = LogManager.GetRepository();
-            repository.Threshold = Level.Debug;
         }
 
         private LoggingEvent DoLog(Action action)
@@ -36,51 +44,86 @@ namespace Basho.Logging.Tests
             }
         }
 
-        private void LogLevel(Level level, string log)
+        private void LogLevel(LevelTest level, string log)
         {
-            if (level == Level.Debug)
-                Foo.Log.Debug(log);
-            else if (level == Level.Info)
-                Foo.Log.Info(log);
-            else if (level == Level.Warn)
-                Foo.Log.Warn(log);
-            else if (level == Level.Error)
-                Foo.Log.Error(log);
-            else if (level == Level.Fatal)
-                Foo.Log.Fatal(log);
+            switch (level)
+            {
+                case LevelTest.Debug:
+                    Foo.Log.Debug(log);
+                    break;
+                case LevelTest.Info:
+                    Foo.Log.Info(log);
+                    break;
+                case LevelTest.Warn:
+                    Foo.Log.Warn(log);
+                    break;
+                case LevelTest.Error:
+                    Foo.Log.Error(log);
+                    break;
+                case LevelTest.Fatal:
+                    Foo.Log.Fatal(log);
+                    break;
+            }
         }
 
-        private void LogExLevel(Level level, string log, Exception ex)
+        private void LogExLevel(LevelTest level, string log, Exception ex)
         {
-            if (level == Level.Debug)
-                Foo.Log.Debug(log, ex);
-            else if (level == Level.Info)
-                Foo.Log.Info(log, ex);
-            else if (level == Level.Warn)
-                Foo.Log.Warn(log, ex);
-            else if (level == Level.Error)
-                Foo.Log.Error(log, ex);
-            else if (level == Level.Fatal)
-                Foo.Log.Fatal(log, ex);
+            switch (level)
+            {
+                case LevelTest.Debug:
+                    Foo.Log.Debug(log, ex);
+                    break;
+                case LevelTest.Info:
+                    Foo.Log.Info(log, ex);
+                    break;
+                case LevelTest.Warn:
+                    Foo.Log.Warn(log, ex);
+                    break;
+                case LevelTest.Error:
+                    Foo.Log.Error(log, ex);
+                    break;
+                case LevelTest.Fatal:
+                    Foo.Log.Fatal(log, ex);
+                    break;
+            }
         }
 
-        private void VerifyLogEntry(string message, Level level, string logger, LoggingEvent entry)
+        private Level ToLevel(LevelTest level)
+        {
+            switch (level)
+            {
+                case LevelTest.Debug:
+                    return Level.Debug;
+                case LevelTest.Info:
+                    return Level.Info;
+                case LevelTest.Warn:
+                    return Level.Warn;
+                case LevelTest.Error:
+                    return Level.Error;
+                case LevelTest.Fatal:
+                    return Level.Fatal;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void VerifyLogEntry(string message, LevelTest level, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
             Assert.Null(entry.ExceptionObject);
-            Assert.Equal(level, entry.Level);
+            Assert.Equal(ToLevel(level), entry.Level);
             Assert.Equal(logger, entry.LoggerName);
         }
 
-        private void VerifyExLogEntry(string message, Type exType, Level level, string logger, LoggingEvent entry)
+        private void VerifyExLogEntry(string message, Type exType, LevelTest level, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
             Assert.IsType(exType, entry.ExceptionObject);
-            Assert.Equal(level, entry.Level);
+            Assert.Equal(ToLevel(level), entry.Level);
             Assert.Equal(logger, entry.LoggerName);
         }
 
-        public void TestLog(Level level)
+        public void TestLog(LevelTest level)
         {
             var entry = DoLog(() =>
             {
@@ -90,7 +133,7 @@ namespace Basho.Logging.Tests
             VerifyLogEntry("simple log", level, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
-        public void TestExceptionLog(Level level)
+        public void TestExceptionLog(LevelTest level)
         {
             var entry = DoLog(() =>
             {
@@ -153,13 +196,13 @@ namespace Basho.Logging.Tests
         [Fact]
         public void DebugTest()
         {
-            _fixture.TestLog(Level.Debug);
+            _fixture.TestLog(LevelTest.Debug);
         }
 
         [Fact]
         public void DebugExceptionTest()
         {
-            _fixture.TestLog(Level.Debug);
+            _fixture.TestLog(LevelTest.Debug);
         }
 
         #endregion Debug methods
@@ -169,13 +212,13 @@ namespace Basho.Logging.Tests
         [Fact]
         public void InfoTest()
         {
-            _fixture.TestLog(Level.Info);
+            _fixture.TestLog(LevelTest.Info);
         }
 
         [Fact]
         public void InfoExceptionTest()
         {
-            _fixture.TestExceptionLog(Level.Info);
+            _fixture.TestExceptionLog(LevelTest.Info);
         }
 
         #endregion Info methods
@@ -185,13 +228,13 @@ namespace Basho.Logging.Tests
         [Fact]
         public void WarnTest()
         {
-            _fixture.TestLog(Level.Warn);
+            _fixture.TestLog(LevelTest.Warn);
         }
 
         [Fact]
         public void WarnExceptionTest()
         {
-            _fixture.TestExceptionLog(Level.Warn);
+            _fixture.TestExceptionLog(LevelTest.Warn);
         }
 
         #endregion Warn methods
@@ -201,13 +244,13 @@ namespace Basho.Logging.Tests
         [Fact]
         public void ErrorTest()
         {
-            _fixture.TestLog(Level.Error);
+            _fixture.TestLog(LevelTest.Error);
         }
 
         [Fact]
         public void ErrorExceptionTest()
         {
-            _fixture.TestExceptionLog(Level.Error);
+            _fixture.TestExceptionLog(LevelTest.Error);
         }
 
         #endregion Error methods
@@ -217,13 +260,13 @@ namespace Basho.Logging.Tests
         [Fact]
         public void FatalTest()
         {
-            _fixture.TestLog(Level.Fatal);
+            _fixture.TestLog(LevelTest.Fatal);
         }
 
         [Fact]
         public void FatalExceptionTest()
         {
-            _fixture.TestExceptionLog(Level.Fatal);
+            _fixture.TestExceptionLog(LevelTest.Fatal);
         }
 
         #endregion Fatal methods
