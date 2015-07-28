@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using Basho.Logging.Tests.Mocks;
 using log4net;
 using log4net.Appender;
@@ -35,9 +36,13 @@ namespace Basho.Logging.Tests
             }
         }
 
-        public void VerifyLogEntry(string message, Level level, string logger, LoggingEvent entry)
+        public void VerifyLogEntry(string message, Type exType, Level level, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
+            if (exType == null)
+                Assert.Null(entry.ExceptionObject);
+            else
+                Assert.IsType(exType, entry.ExceptionObject);
             Assert.Equal(level, entry.Level);
             Assert.Equal(logger, entry.LoggerName);
         }
@@ -100,7 +105,19 @@ namespace Basho.Logging.Tests
                 Foo.Log.Debug("simple log");
             });
 
-            _fixture.VerifyLogEntry("simple log", Level.Debug, "Basho.Logging.Tests.Mocks.Foo", entry);            
+            _fixture.VerifyLogEntry("simple log", null, Level.Debug, "Basho.Logging.Tests.Mocks.Foo", entry);            
+        }
+
+        [Fact]
+        public void DebugExceptionTest()
+        {
+            Exception ex = new ArgumentNullException("param");
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Debug("simple log", ex);
+            });
+
+            _fixture.VerifyLogEntry("simple log", typeof(ArgumentNullException), Level.Debug, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         #endregion Debug methods
@@ -115,7 +132,19 @@ namespace Basho.Logging.Tests
                 Foo.Log.Info("simple log");
             });
 
-            _fixture.VerifyLogEntry("simple log", Level.Info, "Basho.Logging.Tests.Mocks.Foo", entry);
+            _fixture.VerifyLogEntry("simple log", null, Level.Info, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        [Fact]
+        public void InfoExceptionTest()
+        {
+            Exception ex = new ArgumentNullException("param");
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Info("simple log", ex);
+            });
+
+            _fixture.VerifyLogEntry("simple log", typeof(ArgumentNullException), Level.Info, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         #endregion Info methods
@@ -130,7 +159,19 @@ namespace Basho.Logging.Tests
                 Foo.Log.Warn("simple log");
             });
 
-            _fixture.VerifyLogEntry("simple log", Level.Warn, "Basho.Logging.Tests.Mocks.Foo", entry);
+            _fixture.VerifyLogEntry("simple log", null, Level.Warn, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        [Fact]
+        public void WarnExceptionTest()
+        {
+            Exception ex = new ArgumentNullException("param");
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Warn("simple log", ex);
+            });
+
+            _fixture.VerifyLogEntry("simple log", typeof(ArgumentNullException), Level.Warn, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         #endregion Warn methods
@@ -145,7 +186,19 @@ namespace Basho.Logging.Tests
                 Foo.Log.Error("simple log");
             });
 
-            _fixture.VerifyLogEntry("simple log", Level.Error, "Basho.Logging.Tests.Mocks.Foo", entry);
+            _fixture.VerifyLogEntry("simple log", null, Level.Error, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        [Fact]
+        public void ErrorExceptionTest()
+        {
+            Exception ex = new ArgumentNullException("param");
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Error("simple log", ex);
+            });
+
+            _fixture.VerifyLogEntry("simple log", typeof(ArgumentNullException), Level.Error, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         #endregion Error methods
@@ -160,7 +213,19 @@ namespace Basho.Logging.Tests
                 Foo.Log.Fatal("simple log");
             });
 
-            _fixture.VerifyLogEntry("simple log", Level.Fatal, "Basho.Logging.Tests.Mocks.Foo", entry);
+            _fixture.VerifyLogEntry("simple log", null, Level.Fatal, "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        [Fact]
+        public void FatalExceptionTest()
+        {
+            Exception ex = new ArgumentNullException("param");
+            var entry = _fixture.DoLog(() =>
+            {
+                Foo.Log.Fatal("simple log", ex);
+            });
+
+            _fixture.VerifyLogEntry("simple log", typeof(ArgumentNullException), Level.Fatal, "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         #endregion Fatal methods
