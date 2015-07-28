@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ILog.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="LogFormatStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
