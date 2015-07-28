@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using log4net;
 
 namespace Basho.Logging
@@ -29,15 +30,24 @@ namespace Basho.Logging
             return callerType;
         }
 
-
-
-        public void Debug(string message)
+        private void SetContext(string sourceFilePath, int sourceLineNumber, string memberName)
         {
+            LogicalThreadContext.Properties["SourceFilePath"] = sourceFilePath;
+            LogicalThreadContext.Properties["SourceLineNumber"] = sourceLineNumber;
+            LogicalThreadContext.Properties["MemberName"] = memberName;
+        }
+
+
+
+        public void Debug(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Debug(message);
         }
 
-        public void Debug(string message, Exception ex)
+        public void Debug(string message, Exception ex, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Debug(message, ex);
         }
 
@@ -63,13 +73,15 @@ namespace Basho.Logging
 
 
 
-        public void Info(string message)
+        public void Info(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Info(message);
         }
 
-        public void Info(string message, Exception ex)
+        public void Info(string message, Exception ex, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Info(message, ex);
         }
 
@@ -93,15 +105,17 @@ namespace Basho.Logging
             _log.InfoFormat(format, args);
         }
 
-        
 
-        public void Warn(string message)
+
+        public void Warn(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Warn(message);
         }
 
-        public void Warn(string message, Exception ex)
+        public void Warn(string message, Exception ex, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Warn(message, ex);
         }
 
@@ -127,13 +141,15 @@ namespace Basho.Logging
 
 
 
-        public void Error(string message)
+        public void Error(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Error(message);
         }
 
-        public void Error(string message, Exception ex)
+        public void Error(string message, Exception ex, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Error(message, ex);
         }
 
@@ -159,13 +175,15 @@ namespace Basho.Logging
 
 
 
-        public void Fatal(string message)
+        public void Fatal(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Fatal(message);
         }
 
-        public void Fatal(string message, Exception ex)
+        public void Fatal(string message, Exception ex, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
             _log.Fatal(message, ex);
         }
 

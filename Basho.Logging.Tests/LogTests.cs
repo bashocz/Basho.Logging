@@ -252,20 +252,38 @@ namespace Basho.Logging.Tests
             }
         }
 
-        private void VerifyLogEntry(LevelTest level, string message, string logger, LoggingEvent entry)
+        private void VerifyBasisLogEntry(LevelTest level, string message, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
-            Assert.Null(entry.ExceptionObject);
             Assert.Equal(ToLevel(level), entry.Level);
             Assert.Equal(logger, entry.LoggerName);
         }
 
+        private void VerifyLogEntry(LevelTest level, string message, string logger, LoggingEvent entry)
+        {
+            VerifyBasisLogEntry(level, message, logger, entry);
+
+            Assert.Null(entry.ExceptionObject);
+
+            Assert.NotNull(entry.Properties["MemberName"]);
+            Assert.Equal("LogLevel", entry.Properties["MemberName"]);
+        }
+
         private void VerifyExLogEntry(LevelTest level, string message, Type exType, string logger, LoggingEvent entry)
         {
-            Assert.Equal(message, entry.RenderedMessage);
+            VerifyBasisLogEntry(level, message, logger, entry);
+
             Assert.IsType(exType, entry.ExceptionObject);
-            Assert.Equal(ToLevel(level), entry.Level);
-            Assert.Equal(logger, entry.LoggerName);
+
+            Assert.NotNull(entry.Properties["MemberName"]);
+            Assert.Equal("LogExLevel", entry.Properties["MemberName"]);
+        }
+
+        private void VerifyFormatLogEntry(LevelTest level, string message, string logger, LoggingEvent entry)
+        {
+            VerifyBasisLogEntry(level, message, logger, entry);
+
+            Assert.Null(entry.ExceptionObject);
         }
 
         public void TestLog(LevelTest level)
@@ -295,7 +313,7 @@ namespace Basho.Logging.Tests
                 LogFormatLevel(level, "format log:", formatN, paramsN);
             });
 
-            VerifyLogEntry(level, "format log:" + string.Join(",", Args.Take(formatN)), "Basho.Logging.Tests.Mocks.Foo", entry);
+            VerifyFormatLogEntry(level, "format log:" + string.Join(",", Args.Take(formatN)), "Basho.Logging.Tests.Mocks.Foo", entry);
         }
     }
 
@@ -354,7 +372,7 @@ namespace Basho.Logging.Tests
         [InlineData(LevelTest.Warn)]
         [InlineData(LevelTest.Error)]
         [InlineData(LevelTest.Fatal)]
-        public void DebugTest(LevelTest level)
+        public void LogTest(LevelTest level)
         {
             _fixture.TestLog(level);
         }
@@ -365,7 +383,7 @@ namespace Basho.Logging.Tests
         [InlineData(LevelTest.Warn)]
         [InlineData(LevelTest.Error)]
         [InlineData(LevelTest.Fatal)]
-        public void DebugExceptionTest(LevelTest level)
+        public void LogExceptionTest(LevelTest level)
         {
             _fixture.TestExceptionLog(level);
         }
@@ -406,7 +424,7 @@ namespace Basho.Logging.Tests
         [InlineData(LevelTest.Fatal, 4, 4)]
         [InlineData(LevelTest.Fatal, 1, 4)]
         [InlineData(LevelTest.Fatal, 3, 4)]
-        public void DebugFormatTest(LevelTest level, int formatN, int paramsN)
+        public void LogFormatTest(LevelTest level, int formatN, int paramsN)
         {
             _fixture.TestFormatLog(level, formatN, paramsN);
         }
