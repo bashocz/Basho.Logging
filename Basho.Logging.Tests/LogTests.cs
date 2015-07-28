@@ -25,7 +25,15 @@ namespace Basho.Logging.Tests
     {
         private static MemoryAppender _appender = null;
 
-        private static object lockObject = new object();
+        private static readonly object LockObject = new object();
+
+        private static readonly List<string> Args = new List<string>
+        {
+            "first", "second", "third", "fourth", "fifth",
+            "sixth", "seventh", "eighth", "ninth", "tenth",
+            "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+            "sixteenth"
+        };
 
         public Log4NetFixture()
         {
@@ -37,7 +45,7 @@ namespace Basho.Logging.Tests
 
         private LoggingEvent DoLog(Action action)
         {
-            lock (lockObject)
+            lock (LockObject)
             {
                 action();
                 return _appender.GetEvents().LastOrDefault();
@@ -88,6 +96,143 @@ namespace Basho.Logging.Tests
             }
         }
 
+        private void LogFormatLevel(LevelTest level, string log, int formatN, int paramsN)
+        {
+            string format = GetLogFormatString(log, formatN);
+            switch (level)
+            {
+                case LevelTest.Debug:
+                    LogDebugFormat(format, paramsN);
+                    break;
+                case LevelTest.Info:
+                    LogInfoFormat(format, paramsN);
+                    break;
+                case LevelTest.Warn:
+                    LogWarnFormat(format, paramsN);
+                    break;
+                case LevelTest.Error:
+                    LogErrorFormat(format, paramsN);
+                    break;
+                case LevelTest.Fatal:
+                    LogFatalFormat(format, paramsN);
+                    break;
+            }
+        }
+
+        private static void LogDebugFormat(string format, int paramsN)
+        {
+            switch (paramsN)
+            {
+                case 1:
+                    Foo.Log.DebugFormat(format, Args[0]);
+                    break;
+                case 2:
+                    Foo.Log.DebugFormat(format, Args[0], Args[1]);
+                    break;
+                case 3:
+                    Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2]);
+                    break;
+                case 4:
+                    Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static void LogInfoFormat(string format, int paramsN)
+        {
+            switch (paramsN)
+            {
+                case 1:
+                    Foo.Log.InfoFormat(format, Args[0]);
+                    break;
+                case 2:
+                    Foo.Log.InfoFormat(format, Args[0], Args[1]);
+                    break;
+                case 3:
+                    Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2]);
+                    break;
+                case 4:
+                    Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static void LogWarnFormat(string format, int paramsN)
+        {
+            switch (paramsN)
+            {
+                case 1:
+                    Foo.Log.WarnFormat(format, Args[0]);
+                    break;
+                case 2:
+                    Foo.Log.WarnFormat(format, Args[0], Args[1]);
+                    break;
+                case 3:
+                    Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2]);
+                    break;
+                case 4:
+                    Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static void LogErrorFormat(string format, int paramsN)
+        {
+            switch (paramsN)
+            {
+                case 1:
+                    Foo.Log.ErrorFormat(format, Args[0]);
+                    break;
+                case 2:
+                    Foo.Log.ErrorFormat(format, Args[0], Args[1]);
+                    break;
+                case 3:
+                    Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2]);
+                    break;
+                case 4:
+                    Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static void LogFatalFormat(string format, int paramsN)
+        {
+            switch (paramsN)
+            {
+                case 1:
+                    Foo.Log.FatalFormat(format, Args[0]);
+                    break;
+                case 2:
+                    Foo.Log.FatalFormat(format, Args[0], Args[1]);
+                    break;
+                case 3:
+                    Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2]);
+                    break;
+                case 4:
+                    Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private string GetLogFormatString(string log, int n)
+        {
+            StringBuilder args = new StringBuilder();
+            args.Append("{0}");
+            for (int i = 1; i < n; i++)
+                args.Append(string.Format(",{{{0}}}", i));
+            return log + args;
+        }
+
         private Level ToLevel(LevelTest level)
         {
             switch (level)
@@ -107,7 +252,7 @@ namespace Basho.Logging.Tests
             }
         }
 
-        private void VerifyLogEntry(string message, LevelTest level, string logger, LoggingEvent entry)
+        private void VerifyLogEntry(LevelTest level, string message, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
             Assert.Null(entry.ExceptionObject);
@@ -115,7 +260,7 @@ namespace Basho.Logging.Tests
             Assert.Equal(logger, entry.LoggerName);
         }
 
-        private void VerifyExLogEntry(string message, Type exType, LevelTest level, string logger, LoggingEvent entry)
+        private void VerifyExLogEntry(LevelTest level, string message, Type exType, string logger, LoggingEvent entry)
         {
             Assert.Equal(message, entry.RenderedMessage);
             Assert.IsType(exType, entry.ExceptionObject);
@@ -130,7 +275,7 @@ namespace Basho.Logging.Tests
                 LogLevel(level, "simple log");
             });
 
-            VerifyLogEntry("simple log", level, "Basho.Logging.Tests.Mocks.Foo", entry);
+            VerifyLogEntry(level, "simple log", "Basho.Logging.Tests.Mocks.Foo", entry);
         }
 
         public void TestExceptionLog(LevelTest level)
@@ -140,7 +285,17 @@ namespace Basho.Logging.Tests
                 LogExLevel(level, "simple log", new ArgumentNullException("param"));
             });
 
-            VerifyExLogEntry("simple log", typeof(ArgumentNullException), level, "Basho.Logging.Tests.Mocks.Foo", entry);
+            VerifyExLogEntry(level, "simple log", typeof(ArgumentNullException), "Basho.Logging.Tests.Mocks.Foo", entry);
+        }
+
+        public void TestFormatLog(LevelTest level, int formatN, int paramsN)
+        {
+            var entry = DoLog(() =>
+            {
+                LogFormatLevel(level, "format log:", formatN, paramsN);
+            });
+
+            VerifyLogEntry(level, "format log:" + string.Join(",", Args.Take(formatN)), "Basho.Logging.Tests.Mocks.Foo", entry);
         }
     }
 
@@ -215,6 +370,46 @@ namespace Basho.Logging.Tests
             _fixture.TestExceptionLog(level);
         }
 
+
+        [Theory]
+        [InlineData(LevelTest.Debug, 1, 1)]
+        [InlineData(LevelTest.Debug, 2, 2)]
+        [InlineData(LevelTest.Debug, 3, 3)]
+        [InlineData(LevelTest.Debug, 4, 4)]
+        [InlineData(LevelTest.Debug, 1, 4)]
+        [InlineData(LevelTest.Debug, 3, 4)]
+
+        [InlineData(LevelTest.Info, 1, 1)]
+        [InlineData(LevelTest.Info, 2, 2)]
+        [InlineData(LevelTest.Info, 3, 3)]
+        [InlineData(LevelTest.Info, 4, 4)]
+        [InlineData(LevelTest.Info, 1, 4)]
+        [InlineData(LevelTest.Info, 3, 4)]
+
+        [InlineData(LevelTest.Warn, 1, 1)]
+        [InlineData(LevelTest.Warn, 2, 2)]
+        [InlineData(LevelTest.Warn, 3, 3)]
+        [InlineData(LevelTest.Warn, 4, 4)]
+        [InlineData(LevelTest.Warn, 1, 4)]
+        [InlineData(LevelTest.Warn, 3, 4)]
+
+        [InlineData(LevelTest.Error, 1, 1)]
+        [InlineData(LevelTest.Error, 2, 2)]
+        [InlineData(LevelTest.Error, 3, 3)]
+        [InlineData(LevelTest.Error, 4, 4)]
+        [InlineData(LevelTest.Error, 1, 4)]
+        [InlineData(LevelTest.Error, 3, 4)]
+
+        [InlineData(LevelTest.Fatal, 1, 1)]
+        [InlineData(LevelTest.Fatal, 2, 2)]
+        [InlineData(LevelTest.Fatal, 3, 3)]
+        [InlineData(LevelTest.Fatal, 4, 4)]
+        [InlineData(LevelTest.Fatal, 1, 4)]
+        [InlineData(LevelTest.Fatal, 3, 4)]
+        public void DebugFormatTest(LevelTest level, int formatN, int paramsN)
+        {
+            _fixture.TestFormatLog(level, formatN, paramsN);
+        }
         #endregion Log methods
     }
 }
