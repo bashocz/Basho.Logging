@@ -116,6 +116,18 @@ namespace Basho.Logging.Tests
                         case 4:
                             Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3]);
                             break;
+                        case 5:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4]);
+                            break;
+                        case 6:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5]);
+                            break;
+                        case 7:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6]);
+                            break;
+                        case 8:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6], Args[7]);
+                            break;
                         default:
                             throw new NotImplementedException();
                     }
@@ -134,6 +146,18 @@ namespace Basho.Logging.Tests
                             break;
                         case 4:
                             Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        case 5:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4]);
+                            break;
+                        case 6:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5]);
+                            break;
+                        case 7:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6]);
+                            break;
+                        case 8:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6], Args[7]);
                             break;
                         default:
                             throw new NotImplementedException();
@@ -154,6 +178,18 @@ namespace Basho.Logging.Tests
                         case 4:
                             Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3]);
                             break;
+                        case 5:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4]);
+                            break;
+                        case 6:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5]);
+                            break;
+                        case 7:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6]);
+                            break;
+                        case 8:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6], Args[7]);
+                            break;
                         default:
                             throw new NotImplementedException();
                     }
@@ -173,6 +209,18 @@ namespace Basho.Logging.Tests
                         case 4:
                             Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3]);
                             break;
+                        case 5:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4]);
+                            break;
+                        case 6:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5]);
+                            break;
+                        case 7:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6]);
+                            break;
+                        case 8:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6], Args[7]);
+                            break;
                         default:
                             throw new NotImplementedException();
                     }
@@ -191,6 +239,18 @@ namespace Basho.Logging.Tests
                             break;
                         case 4:
                             Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        case 5:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4]);
+                            break;
+                        case 6:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5]);
+                            break;
+                        case 7:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6]);
+                            break;
+                        case 8:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3], Args[4], Args[5], Args[6], Args[7]);
                             break;
                         default:
                             throw new NotImplementedException();
@@ -371,37 +431,62 @@ namespace Basho.Logging.Tests
         [InlineData(LevelTest.Debug, 1, 1)]
         [InlineData(LevelTest.Debug, 2, 2)]
         [InlineData(LevelTest.Debug, 3, 3)]
-        //[InlineData(LevelTest.Debug, 4, 4)]
-        //[InlineData(LevelTest.Debug, 1, 4)]
-        //[InlineData(LevelTest.Debug, 3, 4)]
+        [InlineData(LevelTest.Debug, 4, 4)]
+        [InlineData(LevelTest.Debug, 5, 5)]
+        [InlineData(LevelTest.Debug, 6, 6)]
+        [InlineData(LevelTest.Debug, 7, 7)]
+        [InlineData(LevelTest.Debug, 8, 8)]
+        [InlineData(LevelTest.Debug, 1, 4)]
+        [InlineData(LevelTest.Debug, 3, 4)]
+        [InlineData(LevelTest.Debug, 6, 8)]
 
         [InlineData(LevelTest.Info, 1, 1)]
         [InlineData(LevelTest.Info, 2, 2)]
         [InlineData(LevelTest.Info, 3, 3)]
-        //[InlineData(LevelTest.Info, 4, 4)]
-        //[InlineData(LevelTest.Info, 1, 4)]
-        //[InlineData(LevelTest.Info, 3, 4)]
+        [InlineData(LevelTest.Info, 4, 4)]
+        [InlineData(LevelTest.Info, 5, 5)]
+        [InlineData(LevelTest.Info, 6, 6)]
+        [InlineData(LevelTest.Info, 7, 7)]
+        [InlineData(LevelTest.Info, 8, 8)]
+        [InlineData(LevelTest.Info, 1, 4)]
+        [InlineData(LevelTest.Info, 3, 4)]
+        [InlineData(LevelTest.Info, 6, 8)]
 
         [InlineData(LevelTest.Warn, 1, 1)]
         [InlineData(LevelTest.Warn, 2, 2)]
         [InlineData(LevelTest.Warn, 3, 3)]
-        //[InlineData(LevelTest.Warn, 4, 4)]
-        //[InlineData(LevelTest.Warn, 1, 4)]
-        //[InlineData(LevelTest.Warn, 3, 4)]
+        [InlineData(LevelTest.Warn, 4, 4)]
+        [InlineData(LevelTest.Warn, 5, 5)]
+        [InlineData(LevelTest.Warn, 6, 6)]
+        [InlineData(LevelTest.Warn, 7, 7)]
+        [InlineData(LevelTest.Warn, 8, 8)]
+        [InlineData(LevelTest.Warn, 1, 4)]
+        [InlineData(LevelTest.Warn, 3, 4)]
+        [InlineData(LevelTest.Warn, 6, 8)]
 
         [InlineData(LevelTest.Error, 1, 1)]
         [InlineData(LevelTest.Error, 2, 2)]
         [InlineData(LevelTest.Error, 3, 3)]
-        //[InlineData(LevelTest.Error, 4, 4)]
-        //[InlineData(LevelTest.Error, 1, 4)]
-        //[InlineData(LevelTest.Error, 3, 4)]
+        [InlineData(LevelTest.Error, 4, 4)]
+        [InlineData(LevelTest.Error, 5, 5)]
+        [InlineData(LevelTest.Error, 6, 6)]
+        [InlineData(LevelTest.Error, 7, 7)]
+        [InlineData(LevelTest.Error, 8, 8)]
+        [InlineData(LevelTest.Error, 1, 4)]
+        [InlineData(LevelTest.Error, 3, 4)]
+        [InlineData(LevelTest.Error, 6, 8)]
 
         [InlineData(LevelTest.Fatal, 1, 1)]
         [InlineData(LevelTest.Fatal, 2, 2)]
         [InlineData(LevelTest.Fatal, 3, 3)]
-        //[InlineData(LevelTest.Fatal, 4, 4)]
-        //[InlineData(LevelTest.Fatal, 1, 4)]
-        //[InlineData(LevelTest.Fatal, 3, 4)]
+        [InlineData(LevelTest.Fatal, 4, 4)]
+        [InlineData(LevelTest.Fatal, 5, 5)]
+        [InlineData(LevelTest.Fatal, 6, 6)]
+        [InlineData(LevelTest.Fatal, 7, 7)]
+        [InlineData(LevelTest.Fatal, 8, 8)]
+        [InlineData(LevelTest.Fatal, 1, 4)]
+        [InlineData(LevelTest.Fatal, 3, 4)]
+        [InlineData(LevelTest.Fatal, 6, 8)]
         public void LogFormatTest(LevelTest level, int formatN, int paramsN)
         {
             _fixture.TestFormatLog(level, formatN, paramsN);

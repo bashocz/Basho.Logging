@@ -69,9 +69,34 @@ namespace Basho.Logging
             _log.DebugFormat(format, arg0, arg1, arg2);
         }
 
-        public void DebugFormat(string format, params object[] args)
+        public void DebugFormat(string format, object arg0, object arg1, object arg2, object arg3, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            _log.DebugFormat(format, args);
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.DebugFormat(format, arg0, arg1, arg2, arg3);
+        }
+
+        public void DebugFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.DebugFormat(format, arg0, arg1, arg2, arg3, arg4);
+        }
+
+        public void DebugFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.DebugFormat(format, arg0, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        public void DebugFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.DebugFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+
+        public void DebugFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.DebugFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
 
 
@@ -106,9 +131,34 @@ namespace Basho.Logging
             _log.InfoFormat(format, arg0, arg1, arg2);
         }
 
-        public void InfoFormat(string format, params object[] args)
+        public void InfoFormat(string format, object arg0, object arg1, object arg2, object arg3, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            _log.InfoFormat(format, args);
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.InfoFormat(format, arg0, arg1, arg2, arg3);
+        }
+
+        public void InfoFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.InfoFormat(format, arg0, arg1, arg2, arg3, arg4);
+        }
+
+        public void InfoFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.InfoFormat(format, arg0, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        public void InfoFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.InfoFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+
+        public void InfoFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.InfoFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
 
 
@@ -143,9 +193,34 @@ namespace Basho.Logging
             _log.WarnFormat(format, arg0, arg1, arg2);
         }
 
-        public void WarnFormat(string format, params object[] args)
+        public void WarnFormat(string format, object arg0, object arg1, object arg2, object arg3, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            _log.WarnFormat(format, args);
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.WarnFormat(format, arg0, arg1, arg2, arg3);
+        }
+
+        public void WarnFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.WarnFormat(format, arg0, arg1, arg2, arg3, arg4);
+        }
+
+        public void WarnFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.WarnFormat(format, arg0, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        public void WarnFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.WarnFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+
+        public void WarnFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.WarnFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
 
 
@@ -180,9 +255,34 @@ namespace Basho.Logging
             _log.ErrorFormat(format, arg0, arg1, arg2);
         }
 
-        public void ErrorFormat(string format, params object[] args)
+        public void ErrorFormat(string format, object arg0, object arg1, object arg2, object arg3, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            _log.ErrorFormat(format, args);
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.ErrorFormat(format, arg0, arg1, arg2, arg3);
+        }
+
+        public void ErrorFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.ErrorFormat(format, arg0, arg1, arg2, arg3, arg4);
+        }
+
+        public void ErrorFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.ErrorFormat(format, arg0, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        public void ErrorFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.ErrorFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+
+        public void ErrorFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.ErrorFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
 
 
@@ -217,9 +317,34 @@ namespace Basho.Logging
             _log.FatalFormat(format, arg0, arg1, arg2);
         }
 
-        public void FatalFormat(string format, params object[] args)
+        public void FatalFormat(string format, object arg0, object arg1, object arg2, object arg3, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            _log.FatalFormat(format, args);
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.FatalFormat(format, arg0, arg1, arg2, arg3);
+        }
+
+        public void FatalFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.FatalFormat(format, arg0, arg1, arg2, arg3, arg4);
+        }
+
+        public void FatalFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.FatalFormat(format, arg0, arg1, arg2, arg3, arg4, arg5);
+        }
+
+        public void FatalFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.FatalFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+
+        public void FatalFormat(string format, object arg0, object arg1, object arg2, object arg3, object arg4, object arg5, object arg6, object arg7, LogFormatStyle style = LogFormatStyle.Normal, [CallerMemberName] string memberName = "", [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            SetContext(sourceFilePath, sourceLineNumber, memberName);
+            _log.FatalFormat(format, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
     }
 }
