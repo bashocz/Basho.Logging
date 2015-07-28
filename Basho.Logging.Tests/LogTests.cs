@@ -102,125 +102,100 @@ namespace Basho.Logging.Tests
             switch (level)
             {
                 case LevelTest.Debug:
-                    LogDebugFormat(format, paramsN);
+                    switch (paramsN)
+                    {
+                        case 1:
+                            Foo.Log.DebugFormat(format, Args[0]);
+                            break;
+                        case 2:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1]);
+                            break;
+                        case 3:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2]);
+                            break;
+                        case 4:
+                            Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
                 case LevelTest.Info:
-                    LogInfoFormat(format, paramsN);
+                    switch (paramsN)
+                    {
+                        case 1:
+                            Foo.Log.InfoFormat(format, Args[0]);
+                            break;
+                        case 2:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1]);
+                            break;
+                        case 3:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2]);
+                            break;
+                        case 4:
+                            Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
                 case LevelTest.Warn:
-                    LogWarnFormat(format, paramsN);
+                    switch (paramsN)
+                    {
+                        case 1:
+                            Foo.Log.WarnFormat(format, Args[0]);
+                            break;
+                        case 2:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1]);
+                            break;
+                        case 3:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2]);
+                            break;
+                        case 4:
+                            Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
                 case LevelTest.Error:
-                    LogErrorFormat(format, paramsN);
+                    switch (paramsN)
+                    {
+                        case 1:
+                            Foo.Log.ErrorFormat(format, Args[0]);
+                            break;
+                        case 2:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1]);
+                            break;
+                        case 3:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2]);
+                            break;
+                        case 4:
+                            Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
                 case LevelTest.Fatal:
-                    LogFatalFormat(format, paramsN);
+                    switch (paramsN)
+                    {
+                        case 1:
+                            Foo.Log.FatalFormat(format, Args[0]);
+                            break;
+                        case 2:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1]);
+                            break;
+                        case 3:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2]);
+                            break;
+                        case 4:
+                            Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3]);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
-            }
-        }
-
-        private static void LogDebugFormat(string format, int paramsN)
-        {
-            switch (paramsN)
-            {
-                case 1:
-                    Foo.Log.DebugFormat(format, Args[0]);
-                    break;
-                case 2:
-                    Foo.Log.DebugFormat(format, Args[0], Args[1]);
-                    break;
-                case 3:
-                    Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2]);
-                    break;
-                case 4:
-                    Foo.Log.DebugFormat(format, Args[0], Args[1], Args[2], Args[3]);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private static void LogInfoFormat(string format, int paramsN)
-        {
-            switch (paramsN)
-            {
-                case 1:
-                    Foo.Log.InfoFormat(format, Args[0]);
-                    break;
-                case 2:
-                    Foo.Log.InfoFormat(format, Args[0], Args[1]);
-                    break;
-                case 3:
-                    Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2]);
-                    break;
-                case 4:
-                    Foo.Log.InfoFormat(format, Args[0], Args[1], Args[2], Args[3]);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private static void LogWarnFormat(string format, int paramsN)
-        {
-            switch (paramsN)
-            {
-                case 1:
-                    Foo.Log.WarnFormat(format, Args[0]);
-                    break;
-                case 2:
-                    Foo.Log.WarnFormat(format, Args[0], Args[1]);
-                    break;
-                case 3:
-                    Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2]);
-                    break;
-                case 4:
-                    Foo.Log.WarnFormat(format, Args[0], Args[1], Args[2], Args[3]);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private static void LogErrorFormat(string format, int paramsN)
-        {
-            switch (paramsN)
-            {
-                case 1:
-                    Foo.Log.ErrorFormat(format, Args[0]);
-                    break;
-                case 2:
-                    Foo.Log.ErrorFormat(format, Args[0], Args[1]);
-                    break;
-                case 3:
-                    Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2]);
-                    break;
-                case 4:
-                    Foo.Log.ErrorFormat(format, Args[0], Args[1], Args[2], Args[3]);
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private static void LogFatalFormat(string format, int paramsN)
-        {
-            switch (paramsN)
-            {
-                case 1:
-                    Foo.Log.FatalFormat(format, Args[0]);
-                    break;
-                case 2:
-                    Foo.Log.FatalFormat(format, Args[0], Args[1]);
-                    break;
-                case 3:
-                    Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2]);
-                    break;
-                case 4:
-                    Foo.Log.FatalFormat(format, Args[0], Args[1], Args[2], Args[3]);
-                    break;
-                default:
-                    throw new NotImplementedException();
             }
         }
 
